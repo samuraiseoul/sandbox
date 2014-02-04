@@ -1,0 +1,64 @@
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>DZ-TEST</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="dropzone.js"></script>
+		<script>
+			$(document).ready(function(){
+				Dropzone.autoDiscover = false;
+				$("#dz").dropzone({
+					dictDefaultMessage : "",
+					maxFiles : 1,
+					acceptedFiles : ".jpeg,.jpg,.png,.JPEG,.JPG,.PNG",
+					previewTemplate : "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <img data-dz-thumbnail width='100' height='100' />\n  </div>\n <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
+					accept: function(file, done) {
+							
+						    done();
+						    $("#dz").dropzone().disable();
+						  },
+					init: function() {
+						    this.on("maxfilesexceeded", function(file){
+    							this.removeFile(file);
+						    });
+						    this.on("error", function(file){
+						    	this.removeFile(file);
+						    	$("#error").html("An error occured when uploading the file!<br>"+
+						    	"Be sure it is a .jpg or .png, also besure you didn't already upload a file!");
+						    });
+						  }
+				});
+			});
+		</script>
+		<style>
+			.nl{
+				width:100%;
+				float:left;
+			}
+			.dz{
+				background-color : lightgray;
+				width: 100px;
+				height: 100px;
+				float: left;
+			}
+			.error{
+				color : red;
+			}
+		</style>
+	</head>
+	<body>
+		<span class="error nl" id="error"> </span>
+		<form action="#" class="dropzone dz" id="dz">
+			
+		</form>
+		<span class=nl>
+			Little hacky but works. Only allows one file, .png/.jpg/.jpeg, <br>
+			Also can be clicked to add file instead.<br>
+			Included a QR code in the zip for your viewing please.
+			<br><br>
+			Default text is normally not shown and is set as a backgroung img.<br>
+			Achieved through {dictDefaultMessage : ""}
+		</span>
+	</body>
+</html>

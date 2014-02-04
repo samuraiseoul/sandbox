@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<title>Imgur - Test</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="dropzone.js"></script>
+		<script>
+		$(document).ready(function(){
+			/*
+			I guess just have the imgur link display on page after? 
+			*/
+			function readImage(input) {
+		        var FR= new FileReader();
+		        FR.onload = function(e) {
+		        	console.log(e.target.result.replace(/^data:image\/(png|jpg);base64,/, ""));
+		        	$.ajax({
+							    url: 'https://api.imgur.com/3/image',
+							    type: 'post',
+							    headers: {
+							        Authorization: 'Client-ID 40dbfe0cfea73a7'
+							    },
+							    data: {
+							        image: e.target.result.replace(/^data:image\/(png|jpg);base64,/, "")
+							    },
+							    dataType: 'json',
+							    success: function(json) {
+							        console.log(json);
+							        $("#img_link").attr('href', json.data.link);
+							        $("#img_link").show();
+							    },
+							    error: function(json) {
+							        console.log(json);
+							    }
+							});
+		        };       
+		        FR.readAsDataURL( input );
+			}
+			
+			$(document).ready(function(){
+				Dropzone.autoDiscover = false;
+				$("#dz").dropzone({
+					dictDefaultMessage : "",
+					maxFiles : 1,
+					acceptedFiles : ".jpeg,.jpg,.png,.JPEG,.JPG,.PNG",
+					previewTemplate : "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <img data-dz-thumbnail width='100' height='100' />\n  </div>\n <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
+					accept: function(file, done) {
+							readImage(file);
+						    done();
+						  },
+					init: function() {
+						    this.on("maxfilesexceeded", function(file){
+    							this.removeFile(file);
+						    });
+						    this.on("error", function(file){
+						    	this.removeFile(file);
+						    	$("#error").html("An error occured when uploading the file!<br>"+
+						    	"Be sure it is a .jpg or .png, also besure you didn't already upload a file!");
+						    });
+						  }
+				});
+			});
+		});
+		</script>
+		<style>
+			.hidden{
+				display: none;
+			}
+			.canvas{
+				width: 100px;
+				height: 100px;
+			}
+			
+			.dz{
+				background-color : lightgray;
+				width: 100px;
+				height: 100px;
+				float: left;
+			}
+			.error{
+				color : red;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<span class="error nl" id="error"> </span>
+		<form action="#" class="dropzone dz" id="dz">
+		</form>
+		<a id="img_link" href="" style="display:none;width:100%;float:left;">Link to img on imgur.</a>
+		<!--<input type='file' id="asd" />
+		<img id="img" src="" />
+		<div id="base"></div>
+		Imgur, dur.
+		<canvas id="canvas" class="canvas"></canvas>
+		<img id="img" src="doodle.png" class="hidden" width="100" height="100"/>-->
+	</body>
+</html>

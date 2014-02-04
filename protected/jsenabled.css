@@ -1,0 +1,9 @@
+.protected .normal{
+	display:block;
+}
+.protected .dumb{
+	display:none;
+}
+.protected .overlay{
+	display:none;
+}

@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>Protect</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="jquery.url.js"></script><!-- used to get params from URL -->
+		<link rel="stylesheet" href="nojs.css" />
+		<!--
+			<link rel="stylesheet" href="jsdisabled.css" />
+			Use this and then add protected style sheet if it's protected.	
+		-->
+		<script type="text/javascript">
+		    document.write('<link rel="stylesheet" href="jsenabled.css" />');
+			if(jQuery.url.param("protected") !== undefined){ //Example of jquery.url.js
+				document.write('<link rel="stylesheet" href="jsprotected.css" />');
+				document.write('<link rel="stylesheet" href="hint.min.css" />');
+		   	}
+		</script>
+		<script>
+			$(document).ready(function(){
+				$(".nojs").click(function(){
+					var overlay = $(this).parent().parent().parent();
+					overlay.hide();
+					var outer = overlay.parent();
+					outer.removeClass (function (index, css) {
+					    return (css.match (/\hint--\S+/g) || []).join(' ');
+					});
+					outer.removeAttr("data-hint");
+				});
+				$(".enable").click(function(){
+					var overlay = $(this).parent().parent().parent();
+					overlay.hide();
+					var outer = overlay.parent();
+					outer.find(".dumb").hide();
+					outer.find(".normal").show();
+					outer.removeClass (function (index, css) {
+					    return (css.match (/\hint--\S+/g) || []).join(' ');
+					});
+					outer.removeAttr("data-hint");
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div style="float:left;width:100%;">
+			<a href="?protected">Click here to see protected view.</a><br>
+			<a href="./">Click here to see normal view.</a><br>
+			No script defaults to dumb.<br>
+			Normal, is normal view.<br>
+			Protected, has a tooltip and two buttons.<br>
+			No tooltip on normal and noJS.
+			<br>
+		</div>
+		<div class="protected hint--right hint--multiline"  id="test" data-hint="I am protected in JS!">
+			<div class="dumb">
+				I am silly default!
+			</div>
+			<div class="normal">
+				I am the normal JS thing
+			</div>
+			<div class="overlay">
+				<div class="wrap">
+					<div class="buttons">
+						<button class="enable">Enable</button>
+						<button class="nojs">noJS</button>
+					</div>
+				</div>
+			</div>
+		</div>		
+		<div class="protected hint--right hint--multiline" data-hint="I am other protected thing #LOLZ #YOLOY #SWAG #DEVORDIE!">
+			<div class="dumb">
+				Another Silly Default!
+			</div>
+			<div class="normal">
+				DragQueen and Drop!
+			</div>
+			<div class="overlay">
+				<div class="wrap">
+					<div class="buttons">
+						<button class="enable">Enable</button>
+						<button class="nojs">noJS</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

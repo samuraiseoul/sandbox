@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<title>test</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="oridomi.min.js"></script>
+		<script>
+		$(document).ready(function(){
+				var folded = new OriDomi("#test", {
+												  speed:           500, 
+												  ripple:          2,    
+												  shadingIntesity: .5,   
+												  perspective:     800,   
+												  maxAngle:        360,    
+												  shading:         'soft',
+												  vPanels: 2, //limits vertical panels for accordion modes
+												  hPanels : 2 //limits horizontal panels for accordion modes
+												});
+				folded.accordion(45, { touchEnabled: false });
+				folded.disableTouch(); // otherwise you can change the angle with the mouse.
+				
+				
+				var folded2 = new OriDomi("#test2", {
+												  speed:           500, 
+												  ripple:          2,    
+												  shadingIntesity: .5,   
+												  perspective:     800,   
+												  maxAngle:        360,    
+												  shading:         'soft',
+												  vPanels: 2,
+												  hPanels : 2
+												});
+				folded2.accordion(45 , { touchEnabled: false });
+				folded2.disableTouch();
+				
+				var folded3 = new OriDomi("#test3", {
+												  speed:           500, 
+												  ripple:          2,    
+												  shadingIntesity: .5,   
+												  perspective:     800,   
+												  maxAngle:        360,    
+												  shading:         'soft',
+												  vPanels: 2,
+												  hPanels : 2
+												});
+				folded3.accordion(-45, { touchEnabled: false });
+				folded3.disableTouch();
+			});
+		</script>
+	</head>
+	<body>
+		<div style="float:left;width: 100%;">
+			Pretty easy once you figure it out. <br>
+		</div>
+		<div id="test" style="float:left;background-color: grey;width: 600px;height: 418px;">
+			<img src="merry_christmas_card1.jpg" />			
+		</div>
+		<div style="float:left"><img src="merry_christmas_card1.jpg" /></div>
+		<div style="position: absolute;width:300px;margin-top: 440px;">
+		The Red line shows the half way point for the image.
+			<img src="samurai2.jpg" />			
+		</div>
+		<div id="test2" style="position: absolute;width: 290px;height: 290px;margin-top: 475px; margin-left: 300px;">
+			<img src="samurai.jpg" />			
+		</div>
+		<div id="test3" style="position: absolute;width: 290px;height: 290px;margin-top: 475px; margin-left: 600px;">
+			<img src="samurai.jpg" />			
+		</div>
+		<br>
+	</body>
+</html>
