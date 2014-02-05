@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<script type="text/x-handlebars">
+		<div class="header">
+			<ul>
+				<li>
+					{{#link-to 'index'}}Ember{{/link-to}}
+				</li>
+				<li>
+					{{#link-to 'posts'}}Posts{{/link-to}}
+				</li>
+				<li>
+					{{#link-to 'about'}}About{{/link-to}}
+				</li>
+			</ul>
+		</div>
+		<div class="content">
+			{{outlet}}
+		</div>
+		<div class="footer"></div>
+	</script>
+
+	<script type="text/x-handlebars" id="about">
+		About!
+	</script>
+	<script type="text/x-handlebars" id="posts">
+		<div class="nav">
+			<span class="title">Recent Posts</span>
+			<ul>
+				{{#each}}
+				<li>{{#link-to "post" this}}{{title}} <br>by {{author}}{{/link-to}}</li>
+				{{/each}}
+			</ul>
+		</div>
+		<div class="post">
+			{{outlet}}
+		</div>
+	</script>
+	
+	<script type="text/x-handlebars" id="post">
+		<button {{action "something"}}>Something!</button><br>
+		{{title}}<br>
+		{{author}} on {{date}}<br>
+		{{excerpt}}<br>
+		{{body}}<br>
+	</script>
+	
+	<script type="text/x-handlebars" id="index">
+		Index!
+	</script>
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.3.1.js"></script>
+  <script src="js/app.js"></script>
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <script src="tests/runner.js"></script>
+</body>
+</html>
